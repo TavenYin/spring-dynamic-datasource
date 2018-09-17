@@ -45,6 +45,11 @@ public class UserController {
 		return dynamicDataSource.addDataSource(map);
 	}
 	
+	/**
+	 * 切换数据源示例
+	 * 
+	 * @return
+	 */
 	@GetMapping("/get")
 	public Object get() {
 		Map<String, Object> map = new HashMap<>();

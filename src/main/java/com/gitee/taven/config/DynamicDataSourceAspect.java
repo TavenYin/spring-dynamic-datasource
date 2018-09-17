@@ -50,7 +50,7 @@ public class DynamicDataSourceAspect {
     		DynamicDataSourceContextHolder.setDataSourceKey(param);
     	}
     		
-        logger.info("Switch DataSource to [{%s}] in Method [{%s}]",
+        logger.info("Switch DataSource to [{}] in Method [{}]",
                 DynamicDataSourceContextHolder.getDataSourceKey(), point.getSignature());
     }
 

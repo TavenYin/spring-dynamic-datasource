@@ -85,7 +85,7 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
 			// 当前 targetDataSources 与 父类 targetDataSources 为同一对象 所以不需要set
 //			this.setTargetDataSources(targetMap);
 			this.afterPropertiesSet();
-			logger.info("dataSource {} has been added", database);
+			logger.info("dataSource [{}] has been added", database);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return false;

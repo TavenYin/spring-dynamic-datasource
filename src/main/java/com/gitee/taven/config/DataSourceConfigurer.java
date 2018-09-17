@@ -1,7 +1,15 @@
 package com.gitee.taven.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,11 +17,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
-
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.gitee.taven.config.prop.Db0Properties;
+import com.gitee.taven.config.prop.Db1Properties;
 
 /**
  * 多数据源配置
@@ -25,6 +31,12 @@ import java.util.Map;
 @MapperScan("com.gitee.taven.mapper")
 public class DataSourceConfigurer {
 
+	@Autowired private Db0Properties db0Properties;
+	
+	@Autowired private Db1Properties db1Properties;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceConfigurer.class);
+	
     /**
      * DataSource 自动配置并注册
      *
@@ -32,9 +44,15 @@ public class DataSourceConfigurer {
      */
     @Bean("db0")
     @Primary
-    @ConfigurationProperties(prefix = "datasource.db0")
     public DataSource dataSource0() {
-        return DruidDataSourceBuilder.create().build();
+    	DataSource dataSource = null;
+		try {
+			dataSource = DruidDataSourceFactory.createDataSource(db0Properties.getProperties());
+		} catch (Exception e) {
+			LOGGER.error("Create DataSource Error : {}", e);
+			throw new RuntimeException();
+		}
+    	return dataSource;
     }
 
     /**
@@ -43,9 +61,15 @@ public class DataSourceConfigurer {
      * @return data source
      */
     @Bean("db1")
-    @ConfigurationProperties(prefix = "datasource.db1")
     public DataSource dataSource1() {
-        return DruidDataSourceBuilder.create().build();
+    	DataSource dataSource = null;
+		try {
+			dataSource = DruidDataSourceFactory.createDataSource(db1Properties.getProperties());
+		} catch (Exception e) {
+			LOGGER.error("Create DataSource Error : {}", e);
+			throw new RuntimeException();
+		}
+    	return dataSource;
     }
 
     /**
@@ -93,4 +117,3 @@ public class DataSourceConfigurer {
         return new DataSourceTransactionManager(dynamicDataSource());
     }
 }
-
