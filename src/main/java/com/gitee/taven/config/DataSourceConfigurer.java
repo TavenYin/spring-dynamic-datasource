@@ -42,9 +42,7 @@ public class DataSourceConfigurer {
      *
      * @return data source
      */
-    @Bean("db0")
-    @Primary
-    public DataSource dataSource0() {
+    private DataSource dataSource0() {
     	DataSource dataSource = null;
 		try {
 			dataSource = DruidDataSourceFactory.createDataSource(db0Properties.getProperties());
@@ -60,8 +58,7 @@ public class DataSourceConfigurer {
      *
      * @return data source
      */
-    @Bean("db1")
-    public DataSource dataSource1() {
+    private DataSource dataSource1() {
     	DataSource dataSource = null;
 		try {
 			dataSource = DruidDataSourceFactory.createDataSource(db1Properties.getProperties());
@@ -75,7 +72,7 @@ public class DataSourceConfigurer {
     /**
      * 注册动态数据源
      * 
-     * @return
+     * @return DynamicRoutingDataSource
      */
     @Bean("dynamicDataSource")
     public DataSource dynamicDataSource() {
