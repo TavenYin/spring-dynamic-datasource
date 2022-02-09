@@ -44,4 +44,10 @@ public Object getByTransactional(@RequestParam(defaultValue = "dynamic_db0") Str
 ## 最后
 关于这个项目了解更多：https://www.jianshu.com/p/0a485c965b8b
 
-欢迎关注我的简书与我交流：https://www.jianshu.com/p/0a485c965b8b
+欢迎关注我的简书或者公众号与我交流
+
+简书：https://www.jianshu.com/u/cd682de00804
+
+公众号：【殷天文】 
+
+![](http://mtw.so/5An2Ue)
